@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homework_9</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <input id="from" type="text" />
+    В инпуте написано:
+    <span class="span-element"></span>
+
+    <br />
+
+    <button class="messageBtn">Показать блок</button>
+    <div class="message">Привет :)</div>
+
+    <br />
+
+    <form>
+      <label>
+        Первый инпут:
+        <input class="form-control" type="text" />
+      </label>
+      <br />
+      <br />
+      <label>
+        Второй инпут:
+        <select class="form-control">
+          <option value=""></option>
+          <option value="1">Один</option>
+          <option value="2">Два</option>
+        </select>
+      </label>
+      <br />
+      <br />
+      <button class="button-submit" type="submit">Отправить</button>
+    </form>
+    <script>
+      //1. При изменении значения в input с id="from",
+      // значение содержащееся в нем должно моментально отображаться в span.
+      // То есть при печати в input'е тег span также должен меняться.
+
+      const inputFromElement = document.querySelector("#from");
+      const spanElement = document.querySelector(".span-element");
+      inputFromElement.addEventListener("input", () => {
+        spanElement.innerText = inputFromElement.value;
+      });
+
+      // 2. При клике на кнопку с классом messageBtn необходимо элементу с классом message:
+      // - добавить два класса: animate_animated и animate_fadeInLeftBig
+      // - поставить данному элементу стиль visibility в значение 'visible'.
+
+      const messageBtnElement = document.querySelector(".messageBtn");
+      const messageElement = document.querySelector(".message");
+      messageBtnElement.addEventListener("click", () => {
+        messageElement.classList.add(
+          "animate_animated",
+          "animate_fadeInLeftBig"
+        );
+        messageElement.style.visibility = "visible"; //для наглядности немного отстилизовал элемент
+      });
+
+      //   3. Необходимо при отправке формы проверить, заполнены ли все поля в этой форме.
+      //   Если какое-либо поле не заполнено, форма не должна отправляться,
+      //   также должны быть подсвечены незаполненные поля (необходимо поставить класс error незаполненным полям).
+      //   Как только пользователь начинает заполнять какое-либо поле, необходимо,
+      //   при вводе в данное поле, произвести проверку:
+      // - Если поле пустое, необходимо данное поле подсветить (поставить класс error данному полю).
+      // - Если поле было чем-либо заполнено, подсветку (класс error) необходимо убрать.
+
+      const inputFromControlElement = document.querySelector(".form-control");
+
+      const selectElement = document.querySelector("select");
+
+      const formElement = document.querySelector("form");
+
+      inputFromControlElement.addEventListener("focus", () => {
+        if (inputFromControlElement.value === "") {
+          inputFromControlElement.classList.add("error");
+        }
+      });
+      inputFromControlElement.addEventListener("focusout", () => {
+        if (inputFromControlElement.value !== "") {
+          inputFromControlElement.classList.remove("error");
+        }
+      });
+      selectElement.addEventListener("focus", () => {
+        if (selectElement.value === "") {
+          selectElement.classList.add("error");
+        }
+      });
+      selectElement.addEventListener("focusout", () => {
+        if (selectElement.value !== "") {
+          selectElement.classList.remove("error");
+        }
+      });
+
+      formElement.addEventListener("submit", function (e) {
+        if (
+          inputFromControlElement.value === "" &&
+          selectElement.value === ""
+        ) {
+          e.preventDefault;
+          alert("заполните все поля");
+        }
+      });
+    </script>
+  </body>
+</html>
